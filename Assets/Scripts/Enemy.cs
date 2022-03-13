@@ -6,14 +6,26 @@ public class Enemy : Entity
 {
     void Start()
     {
-        Velocity = new Vector2(0, -1);
+        this.Velocity = new Vector2(0, -1);
     }
 
     void Update()
     {
-        if (IsOutside)
+        if (this.IsOutside)
         {
-            Destroy();
+            this.Destroy();
+        }
+    }
+
+    private int hp = 100;
+
+    public void Damaged(int point)
+    {
+        this.hp -= point;
+
+        if (this.hp <= 0)
+        {
+            this.Destroy();
         }
     }
 }

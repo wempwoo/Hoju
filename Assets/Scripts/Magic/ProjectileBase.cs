@@ -35,6 +35,9 @@ public class ProjectileBase : Entity
         if (collision.gameObject.CompareTag("Enemy"))
         {
             this.Destroy();
+
+            var enemy = collision.GetComponent<Enemy>();
+            enemy.Damaged(30);
         }
     }
 }
