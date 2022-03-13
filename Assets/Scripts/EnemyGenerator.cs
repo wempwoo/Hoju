@@ -11,7 +11,7 @@ public class EnemyGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyPrefab = Prefab.Load("EnemyPrefab");
+        enemyPrefab = Prefabs.Load("EnemyPrefab");
     }
 
     // Update is called once per frame

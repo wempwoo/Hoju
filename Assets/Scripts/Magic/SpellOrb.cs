@@ -8,12 +8,12 @@ public class SpellOrb
 
     public SpellOrb()
     {
-        projectilePrefab = Prefab.Load("ProjectilePrefab");
+        projectilePrefab = Prefabs.Load("ProjectilePrefab");
     }
 
     public void Drive(DriveContext context)
     {
-        var projectile = Prefab.Instantiate<ProjectileBase>(projectilePrefab);
+        var projectile = Prefabs.Instantiate<ProjectileBase>(projectilePrefab);
         projectile.Lifespan = new Lifespan(3);
         projectile.Position = context.playerPosition;
         projectile.Velocity = CalcVelocity(context.playerPosition);

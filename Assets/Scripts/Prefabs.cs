@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-public static class Prefab
+public static class Prefabs
 {
     public static GameObject Load(string name)
     {
