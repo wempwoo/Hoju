@@ -22,6 +22,14 @@ public class ProjectileBase : Entity
     // Start is called before the first frame update
     void Start()
     {
+        Disperse();
+    }
+
+    /// <summary>
+    /// 投射角度の分散処理
+    /// </summary>
+    private void Disperse()
+    {
         float dispersionHalf = Dispersion.value / 2;
         ArcDegree directionRev = new ArcDegree(Random.Range(-dispersionHalf, dispersionHalf));
         this.Velocity = ArcDegree.Rotate(this.Velocity, directionRev);
