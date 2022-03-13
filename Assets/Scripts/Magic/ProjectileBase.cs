@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ProjectileBase : Entity
 {
-    public Lifespan Lifespan { get; set; } = new Lifespan(3);
+    public Seconds Lifespan { get; set; } = new Seconds(3);
 
-    private float elapsedSeconds = 0;
+    private Seconds elapsed = new Seconds(0);
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +22,9 @@ public class ProjectileBase : Entity
             return;
         }
 
-        elapsedSeconds += Time.deltaTime;
+        elapsed += new Seconds(Time.deltaTime);
 
-        if (elapsedSeconds > Lifespan.AsSeconds)
+        if (elapsed > Lifespan)
         {
             Destroy();
         }

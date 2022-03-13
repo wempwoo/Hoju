@@ -14,7 +14,7 @@ public class SpellOrb
     public void Drive(DriveContext context)
     {
         var projectile = Prefabs.Instantiate<ProjectileBase>(projectilePrefab);
-        projectile.Lifespan = new Lifespan(3);
+        projectile.Lifespan = new Seconds(3);
         projectile.Position = context.playerPosition;
         projectile.Velocity = CalcVelocity(context.playerPosition);
     }

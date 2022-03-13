@@ -31,7 +31,8 @@ public class Player : Entity
 
     void Update()
     {
-        var driveContext = new DriveContext(this.Position, Time.deltaTime);
+        Seconds deltaTime = new Seconds(Time.deltaTime);
+        var driveContext = new DriveContext(this.Position, deltaTime);
         circuit.Update(driveContext);
 
     }

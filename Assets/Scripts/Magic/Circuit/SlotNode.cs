@@ -16,18 +16,18 @@ public class SlotNode
 
         this.spell.Drive(context);
         this.status = SlotNodeStatus.CoolingDown;
-        this.cooledSeconds = 0;
+        this.cooled = new Seconds(0);
     }
 
-    private float cooledSeconds;
-    private float coolTime = 0.2f;
+    private Seconds cooled;
+    private Seconds coolTime = new Seconds(0.2f);
 
     public void Update(DriveContext context)
     {
         if (this.status == SlotNodeStatus.CoolingDown)
         {
-            cooledSeconds += context.deltaSeconds;
-            if (cooledSeconds > coolTime)
+            cooled += context.deltaTime;
+            if (cooled > coolTime)
             {
                 this.status = SlotNodeStatus.Done;
                 this.nextSlot?.Drive(context);

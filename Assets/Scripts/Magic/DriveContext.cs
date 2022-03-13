@@ -4,11 +4,11 @@ using UnityEngine;
 public class DriveContext
 {
     public readonly Vector2 playerPosition;
-    public readonly float deltaSeconds;
+    public readonly Seconds deltaTime;
 
-    public DriveContext(Vector2 playerPosition, float deltaSeconds)
+    public DriveContext(Vector2 playerPosition, Seconds deltaTime)
     {
         this.playerPosition = playerPosition;
-        this.deltaSeconds = deltaSeconds;
+        this.deltaTime = deltaTime;
     }
 }

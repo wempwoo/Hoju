@@ -10,9 +10,9 @@ public class MagicCircuit
 
     private CircuitStatus status = CircuitStatus.Ready;
 
-    private float elapsedSeconds = 0;
+    private Seconds elapsed = new Seconds(0);
 
-    private float coolTimeSeconds = 1;
+    private Seconds coolTime = new Seconds(1);
 
     public void Update(DriveContext context)
     {
@@ -36,10 +36,10 @@ public class MagicCircuit
 
         if (status == CircuitStatus.Cooldown)
         {
-            this.elapsedSeconds += context.deltaSeconds;
-            if (this.elapsedSeconds > this.coolTimeSeconds)
+            this.elapsed += context.deltaTime;
+            if (this.elapsed > this.coolTime)
             {
-                this.elapsedSeconds = 0;
+                this.elapsed = new Seconds(0);
                 this.slotsHead.Reset();
                 this.status = CircuitStatus.Ready;
             }
