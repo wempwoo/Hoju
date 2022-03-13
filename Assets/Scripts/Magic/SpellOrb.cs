@@ -27,7 +27,7 @@ public class SpellOrb
             .OrderBy(t => t.dist)
             .FirstOrDefault();
 
-        float angle = (nearest == null) ? 90 : (nearest.pos - myPosition).ArcDegree();
+        var angle = (nearest == null) ? ArcDegree.Top : ArcDegree.Of(nearest.pos - myPosition);
         return ArcDegree.ToVector(angle, 10);
     }
 }

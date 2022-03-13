@@ -1,19 +1,36 @@
 ﻿using System;
 using UnityEngine;
 
-public class ArcDegree
+/// <summary>
+/// 角度(360度のやつ)
+/// </summary>
+public struct ArcDegree
 {
+    public float value;
+
+    public ArcDegree(float arcDegree)
+    {
+        this.value = arcDegree;
+    }
+
+    public static ArcDegree Of(Vector2 v)
+    {
+        return new ArcDegree(Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg);
+    }
+
+    public static ArcDegree Top = new ArcDegree(90);
+
     /// <summary>
     /// 角度と長さからベクトルを求める
     /// </summary>
     /// <param name="arcDegree">角度(右が0度,上が90度)</param>
     /// <param name="distance">長さ</param>
     /// <returns></returns>
-    public static Vector2 ToVector(float arcDegree, float distance)
+    public static Vector2 ToVector(ArcDegree arcDegree, float distance)
     {
         return new Vector2(
-            Cos(arcDegree) * distance,
-            Sin(arcDegree) * distance
+            Cos(arcDegree.value) * distance,
+            Sin(arcDegree.value) * distance
         );
     }
 
@@ -30,15 +47,3 @@ public class ArcDegree
     }
 }
 
-public static class Vector2Extension
-{
-    /// <summary>
-    /// ベクトルの角度を返す
-    /// </summary>
-    /// <param name="v"></param>
-    /// <returns></returns>
-    public static float ArcDegree(this Vector2 v)
-    {
-        return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
-    }
-}
