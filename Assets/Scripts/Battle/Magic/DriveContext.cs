@@ -1,14 +1,17 @@
 ﻿using System;
 using UnityEngine;
 
-public class DriveContext
+namespace BattleScene
 {
-    public readonly Vector2 playerPosition;
-    public readonly Seconds deltaTime;
-
-    public DriveContext(Vector2 playerPosition, Seconds deltaTime)
+    public class DriveContext
     {
-        this.playerPosition = playerPosition;
-        this.deltaTime = deltaTime;
+        public readonly Vector2 playerPosition;
+        public readonly Seconds deltaTime;
+
+        public DriveContext(Vector2 playerPosition, Seconds deltaTime)
+        {
+            this.playerPosition = playerPosition;
+            this.deltaTime = deltaTime;
+        }
     }
 }

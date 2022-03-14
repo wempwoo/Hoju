@@ -1,60 +1,64 @@
 ﻿using System;
-public class SlotNode
+
+namespace BattleScene
 {
-    public SpellOrb spell;
-
-    public SlotNode nextSlot;
-
-    private SlotNodeStatus status = SlotNodeStatus.Ready;
-
-    public void Drive(DriveContext context)
+    public class SlotNode
     {
-        if (this.status != SlotNodeStatus.Ready)
+        public SpellOrb spell;
+
+        public SlotNode nextSlot;
+
+        private SlotNodeStatus status = SlotNodeStatus.Ready;
+
+        public void Drive(DriveContext context)
         {
-            throw new Exception("invalid status: " + this.status);
-        }
-
-        this.spell.Drive(context);
-        this.status = SlotNodeStatus.CoolingDown;
-        this.cooled = new Seconds(0);
-    }
-
-    private Seconds cooled;
-    private Seconds coolTime = new Seconds(0.2f);
-
-    public void Update(DriveContext context)
-    {
-        if (this.status == SlotNodeStatus.CoolingDown)
-        {
-            cooled += context.deltaTime;
-            if (cooled > coolTime)
+            if (this.status != SlotNodeStatus.Ready)
             {
-                this.status = SlotNodeStatus.Done;
-                this.nextSlot?.Drive(context);
+                throw new Exception("invalid status: " + this.status);
             }
 
-            return;
+            this.spell.Drive(context);
+            this.status = SlotNodeStatus.CoolingDown;
+            this.cooled = new Seconds(0);
         }
 
-        this.nextSlot?.Update(context);
+        private Seconds cooled;
+        private Seconds coolTime = new Seconds(0.2f);
+
+        public void Update(DriveContext context)
+        {
+            if (this.status == SlotNodeStatus.CoolingDown)
+            {
+                cooled += context.deltaTime;
+                if (cooled > coolTime)
+                {
+                    this.status = SlotNodeStatus.Done;
+                    this.nextSlot?.Drive(context);
+                }
+
+                return;
+            }
+
+            this.nextSlot?.Update(context);
+        }
+
+        public bool HasFinished()
+        {
+            return this.status == SlotNodeStatus.Done
+                && (this.nextSlot?.HasFinished() ?? true);
+        }
+
+        public void Reset()
+        {
+            this.status = SlotNodeStatus.Ready;
+            this.nextSlot?.Reset();
+        }
     }
 
-    public bool HasFinished()
+    public enum SlotNodeStatus
     {
-        return this.status == SlotNodeStatus.Done
-            && (this.nextSlot?.HasFinished() ?? true);
+        Ready,
+        CoolingDown,
+        Done,
     }
-
-    public void Reset()
-    {
-        this.status = SlotNodeStatus.Ready;
-        this.nextSlot?.Reset();
-    }
-}
-
-public enum SlotNodeStatus
-{
-    Ready,
-    CoolingDown,
-    Done,
 }

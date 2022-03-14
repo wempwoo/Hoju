@@ -2,31 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGenerator : MonoBehaviour
+namespace BattleScene
 {
-    private GameObject enemyPrefab;
-
-    private float delta = 4;
-
-    // Start is called before the first frame update
-    void Start()
+    public class EnemyGenerator : MonoBehaviour
     {
-        enemyPrefab = Prefabs.Load("EnemyPrefab");
-    }
+        private GameObject enemyPrefab;
 
-    // Update is called once per frame
-    void Update()
-    {
-        delta += Time.deltaTime;
+        private float delta = 4;
 
-        if (delta > 5)
+        // Start is called before the first frame update
+        void Start()
         {
-            delta = 0;
-            var newEnemy = Instantiate(enemyPrefab);
+            enemyPrefab = Prefabs.Load("EnemyPrefab");
+        }
 
-            float px = Random.Range(World.Point.Min.x, World.Point.Max.x);
-            float y = World.Point.Max.y;
-            newEnemy.transform.position = new Vector3(px, y, 0);
+        // Update is called once per frame
+        void Update()
+        {
+            delta += Time.deltaTime;
+
+            if (delta > 5)
+            {
+                delta = 0;
+                var newEnemy = Instantiate(enemyPrefab);
+
+                float px = Random.Range(World.Point.Min.x, World.Point.Max.x);
+                float y = World.Point.Max.y;
+                newEnemy.transform.position = new Vector3(px, y, 0);
+            }
         }
     }
 }
