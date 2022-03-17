@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 namespace BattleScene
 {
-    public class Player : Entity
+    /// <summary>
+    /// 魔導機
+    /// </summary>
+    public class Manaroid : Entity
     {
-        private Manaroid manaroid;
+        public MagicCircuit circuit;
 
         void Start()
         {
-            this.manaroid = Prefabs.Instantiate<Manaroid>("ManaroidPrefab");
-            this.manaroid.Position = this.Position + new Vector2(0, 1);
-            this.manaroid.circuit = new MagicCircuit(this.CreateSlotsTree());
+            this.circuit = new MagicCircuit(this.CreateSlotsTree());
         }
 
         private SlotNode CreateSlotsTree()
@@ -34,8 +34,9 @@ namespace BattleScene
 
         void Update()
         {
-
+            Seconds deltaTime = new Seconds(Time.deltaTime);
+            var driveContext = new DriveContext(this.Position, deltaTime);
+            circuit.Update(driveContext);
         }
-
     }
 }
