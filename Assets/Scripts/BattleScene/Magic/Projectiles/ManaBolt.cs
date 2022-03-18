@@ -3,13 +3,13 @@ namespace BattleScene
 {
     public class ManaBolt : ProjectileBehavior
     {
-        public ManaBolt(DriveContext context, Projectile projectile)
-            : base(context, projectile)
-        { }
-
         public override Seconds Lifespan => new Seconds(3);
 
         public override ArcDegree Dispersion => new ArcDegree(8);
+
+        protected override void SetupExtends(DriveContext context, Projectile projectile)
+        {
+        }
 
         public override void OnHit(Enemy enemy)
         {

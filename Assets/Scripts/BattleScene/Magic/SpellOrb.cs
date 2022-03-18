@@ -4,19 +4,25 @@ using UnityEngine;
 
 namespace BattleScene
 {
+    /// <summary>
+    /// 術式宝珠
+    /// </summary>
     public class SpellOrb
     {
-        private GameObject projectilePrefab;
+        private readonly GameObject projectilePrefab;
 
-        public SpellOrb()
+        private readonly ProjectileBehavior spell;
+
+        public SpellOrb(ProjectileBehavior spell)
         {
-            projectilePrefab = Prefabs.Load("ProjectilePrefab");
+            this.projectilePrefab = Prefabs.Load("ProjectilePrefab");
+            this.spell = spell;
         }
 
         public void Drive(DriveContext context)
         {
             var projectile = Prefabs.Instantiate<Projectile>(projectilePrefab);
-            projectile.behavior = new ManaBolt(context, projectile);
+            this.spell.Setup(context, projectile);
         }
 
     }

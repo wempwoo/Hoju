@@ -8,10 +8,18 @@ namespace BattleScene
     /// </summary>
     public abstract class ProjectileBehavior
     {
-        public ProjectileBehavior(DriveContext context, Projectile projectile)
+        public void Setup(DriveContext context, Projectile projectile)
         {
+            projectile.behavior = this;
             projectile.Position = context.playerPosition;
             projectile.Velocity = Target(context.playerPosition);
+
+            this.SetupExtends(context, projectile);
+        }
+
+        protected virtual void SetupExtends(DriveContext context, Projectile projectile)
+        {
+
         }
 
         /// <summary>
