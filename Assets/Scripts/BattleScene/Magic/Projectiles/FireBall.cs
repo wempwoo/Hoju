@@ -21,15 +21,13 @@ namespace BattleScene
 
         public override void OnHit(Projectile projectile, Enemy enemy)
         {
-            float range = 2.0f;
-
             var effectArea = Prefabs.Instantiate<EffectArea>(this.effectAreaPrefab);
             effectArea.Position = projectile.Position;
             effectArea.Color = new Color(1.0f, 0.5f, 0.2f, 0.5f);
-            effectArea.Radius = range;
+            effectArea.Radius = 1.3f;
             effectArea.Lifespan = new Seconds(0.5f);
-            effectArea.effectInterval = new Seconds(1);
-            effectArea.damage = 30;
+            effectArea.EffectInterval = new Seconds(1);
+            effectArea.Damage = 30;
         }
     }
 

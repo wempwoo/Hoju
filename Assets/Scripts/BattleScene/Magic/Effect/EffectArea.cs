@@ -27,13 +27,19 @@ namespace BattleScene
         /// </summary>
         public Color Color { get; set; }
 
-        public int damage;
+        /// <summary>
+        /// ダメージ量
+        /// </summary>
+        public int Damage { get; set; }
 
-        public Seconds effectInterval = new Seconds(1);
+        /// <summary>
+        /// 効果の発生間隔
+        /// </summary>
+        public Seconds EffectInterval { get; set; } = new Seconds(1);
 
         void Start()
         {
-            this.transform.localScale = new Vector2(this.Radius, this.Radius);
+            this.Renderer.transform.localScale = new Vector2(this.Radius * 2, this.Radius * 2);
             this.Renderer.color = this.Color;
         }
 
@@ -67,14 +73,15 @@ namespace BattleScene
                 }
                 else
                 {
-                    this.effecteds[id] = new Seconds(0);
-                    target.Damaged(this.damage);
+                    // 初検出の敵
+                    // 下のif文で確実に処理される経過時間をセットしておく
+                    this.effecteds[id] = this.EffectInterval + new Seconds(1);
                 }
 
-                if (this.effecteds[id] > this.effectInterval)
+                if (this.effecteds[id] > this.EffectInterval)
                 {
                     this.effecteds[id] = new Seconds(0);
-                    target.Damaged(this.damage);
+                    target.Damaged(this.Damage);
                 }
             }
         }
