@@ -18,7 +18,7 @@ namespace BattleScene
             sprite.color = new Color(0.8f, 0.5f, 1.0f);
         }
 
-        public override void OnHit(Enemy enemy)
+        public override void OnHit(Projectile projectile, Enemy enemy)
         {
             enemy.Damaged(30);
         }

@@ -40,7 +40,7 @@ namespace BattleScene
                 this.Destroy();
 
                 var enemy = collision.GetComponent<Enemy>();
-                behavior.OnHit(enemy);
+                behavior.OnHit(this, enemy);
             }
         }
     }

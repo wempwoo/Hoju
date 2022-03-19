@@ -62,7 +62,8 @@ namespace BattleScene
         /// <summary>
         /// 投射物が敵にヒットしたイベント
         /// </summary>
+        /// <param name="projectile"></param>
         /// <param name="enemy"></param>
-        public abstract void OnHit(Enemy enemy);
+        public abstract void OnHit(Projectile projectile, Enemy enemy);
     }
 }
