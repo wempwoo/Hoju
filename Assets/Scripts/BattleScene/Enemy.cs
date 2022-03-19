@@ -29,6 +29,8 @@ namespace BattleScene
 
         public void Damaged(int point)
         {
+            Debug.Log($"{this.GetInstanceID()}: damage[{point}], HP[{hp}]");
+
             this.hp -= point;
 
             if (this.hp <= 0)
