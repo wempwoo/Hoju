@@ -7,7 +7,7 @@ namespace BattleScene
     /// <summary>
     /// 術式宝珠
     /// </summary>
-    public class SpellOrb
+    public abstract class SpellOrb
     {
         private readonly GameObject projectilePrefab;
 

@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace BattleScene
 {
+    /// <summary>
+    /// マナの矢
+    /// </summary>
     public class ManaBolt : ProjectileBehavior
     {
         public override Seconds Lifespan => new Seconds(3);
@@ -22,4 +25,8 @@ namespace BattleScene
 
     }
 
+    public class ManaBoltOrb : SpellOrb
+    {
+        public ManaBoltOrb() : base(new ManaBolt()) { }
+    }
 }
