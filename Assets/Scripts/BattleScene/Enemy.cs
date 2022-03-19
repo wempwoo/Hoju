@@ -7,16 +7,35 @@ namespace BattleScene
 {
     public class Enemy : Entity
     {
+        private Color defaultColor;
         void Start()
         {
             this.Velocity = new Vector2(0, -1);
+            this.defaultColor = this.Renderer.color;
         }
+
+        private bool isDamageEffecting = false;
+        private Seconds damageEffectElapsed;
 
         void Update()
         {
             if (this.IsOutside)
             {
                 this.Destroy();
+            }
+
+            Seconds delta = new Seconds(Time.deltaTime);
+
+            if (this.isDamageEffecting)
+            {
+                this.Renderer.color = new Color(1, 1, 1);
+
+                this.damageEffectElapsed += delta;
+                if (this.damageEffectElapsed > new Seconds(0.1f))
+                {
+                    this.isDamageEffecting = false;
+                    this.Renderer.color = this.defaultColor;
+                }
             }
 
             if (this.Position.y < 1 + Random.Range(0, 1))
@@ -37,6 +56,9 @@ namespace BattleScene
             {
                 this.Destroy();
             }
+
+            this.isDamageEffecting = true;
+            this.damageEffectElapsed = new Seconds(0);
         }
 
         public static IEnumerable<Enemy> GetEnemyEntities()
