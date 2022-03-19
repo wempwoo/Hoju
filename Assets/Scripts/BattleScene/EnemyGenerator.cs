@@ -21,7 +21,7 @@ namespace BattleScene
         {
             delta += Time.deltaTime;
 
-            if (delta > 5)
+            if (delta > 2.5f - Random.Range(0, 1.5f))
             {
                 delta = 0;
                 var newEnemy = Instantiate(enemyPrefab);

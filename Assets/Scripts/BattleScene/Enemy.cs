@@ -17,6 +17,11 @@ namespace BattleScene
             {
                 this.Destroy();
             }
+
+            if (this.Position.y < 1 + Random.Range(0, 1))
+            {
+                this.Velocity = Vector2.zero;
+            }
         }
 
         private int hp = 100;
