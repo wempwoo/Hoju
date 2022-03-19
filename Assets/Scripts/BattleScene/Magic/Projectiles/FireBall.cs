@@ -16,9 +16,18 @@ namespace BattleScene
             sprite.color = new Color(1.0f, 0.4f, 0.2f);
         }
 
+
+        private readonly GameObject effectAreaPrefab = Prefabs.Load("EffectAreaPrefab");
+
         public override void OnHit(Projectile projectile, Enemy enemy)
         {
             float range = 2.0f;
+
+            var effectArea = Prefabs.Instantiate<EffectArea>(this.effectAreaPrefab);
+            effectArea.Color = new Color(1.0f, 0.5f, 0.2f, 0.5f);
+            effectArea.Radius = range;
+            effectArea.Lifespan = new Seconds(0.5f);
+            effectArea.Position = projectile.Position;
 
             var targetEnemies = Enemy.GetEnemyEntities()
                 .Where(e => Math.Abs(Vector2.Distance(e.Position, projectile.Position)) < range);
