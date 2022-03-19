@@ -29,13 +29,19 @@ namespace BattleScene
         /// <returns></returns>
         private Vector2 Target(Vector2 myPosition)
         {
-            var nearest = GameObject.FindGameObjectsWithTag("Enemy")
-                .Select(e => e.transform.position)
-                .Select(p => new { pos = (Vector2)p, dist = Vector2.Distance(myPosition, p) })
-                .OrderBy(t => t.dist)
-                .FirstOrDefault();
+            var enemies = Enemy.GetEnemyEntities();
 
-            var angle = (nearest == null) ? ArcDegree.Top : ArcDegree.Of(nearest.pos - myPosition);
+            ArcDegree angle;
+            if (enemies.Count() == 0)
+            {
+                angle = ArcDegree.Top;
+            }
+            else
+            {
+                (Enemy _, Vector2 position, float _) = Entity.GetNearest(enemies, myPosition);
+                angle = ArcDegree.Of(position - myPosition);
+            }
+
             var targetVelocity = ArcDegree.ToVector(angle, 10);
 
             float dispersionHalf = Dispersion.value / 2;

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -53,5 +55,35 @@ public abstract class Entity : MonoBehaviour
     public void Destroy()
     {
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// targetsの中でfromに最も近いEntityを返す
+    /// </summary>
+    /// <typeparam name="E"></typeparam>
+    /// <param name="targets">必ず1つ以上</param>
+    /// <param name="from"></param>
+    /// <returns></returns>
+    public static (E entity, Vector2 position, float distance) GetNearest<E>(
+        IEnumerable<E> targets,
+        Vector2 from)
+        where E : Entity
+    {
+        if (targets.Count() == 0)
+        {
+            throw new ArgumentException("targetsは1つ以上の要素が必要");
+        }
+
+        var nearest = targets
+                .Select(t => new
+                {
+                    ent = t,
+                    pos = t.transform.position,
+                    dist = Vector2.Distance(from, t.transform.position)
+                })
+                .OrderBy(t => t.dist)
+                .FirstOrDefault();
+
+        return (nearest.ent, nearest.pos, nearest.dist);
     }
 }

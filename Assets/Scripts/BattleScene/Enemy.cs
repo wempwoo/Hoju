@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace BattleScene
@@ -34,6 +35,12 @@ namespace BattleScene
             {
                 this.Destroy();
             }
+        }
+
+        public static IEnumerable<Enemy> GetEnemyEntities()
+        {
+            return GameObject.FindGameObjectsWithTag("Enemy")
+                .Select(obj => obj.GetComponent<Enemy>());
         }
     }
 }
