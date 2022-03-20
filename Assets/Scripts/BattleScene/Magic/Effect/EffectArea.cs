@@ -53,7 +53,7 @@ namespace BattleScene
 
         void Update()
         {
-            Seconds delta = new Seconds(Time.deltaTime);
+            Seconds delta = Seconds.Delta;
             this.elapsed += delta;
 
             if (this.elapsed > this.Lifespan)

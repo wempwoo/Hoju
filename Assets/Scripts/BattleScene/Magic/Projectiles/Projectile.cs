@@ -25,7 +25,7 @@ namespace BattleScene
                 return;
             }
 
-            elapsed += new Seconds(Time.deltaTime);
+            elapsed += Seconds.Delta;
 
             if (elapsed > behavior.Lifespan)
             {

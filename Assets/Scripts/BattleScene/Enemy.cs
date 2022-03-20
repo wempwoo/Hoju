@@ -24,13 +24,11 @@ namespace BattleScene
                 this.Destroy();
             }
 
-            Seconds delta = new Seconds(Time.deltaTime);
-
             if (this.isDamageEffecting)
             {
                 this.Renderer.color = new Color(1, 1, 1);
 
-                this.damageEffectElapsed += delta;
+                this.damageEffectElapsed += Seconds.Delta;
                 if (this.damageEffectElapsed > new Seconds(0.1f))
                 {
                     this.isDamageEffecting = false;

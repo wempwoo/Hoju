@@ -34,8 +34,7 @@ namespace BattleScene
 
         void Update()
         {
-            Seconds deltaTime = new Seconds(Time.deltaTime);
-            var driveContext = new DriveContext(this.Position, deltaTime);
+            var driveContext = new DriveContext(this.Position, Seconds.Delta);
             circuit.Update(driveContext);
         }
     }
