@@ -14,6 +14,9 @@ namespace BattleScene
         {
             var sprite = projectile.GetComponent<SpriteRenderer>();
             sprite.color = new Color(1.0f, 0.4f, 0.2f);
+
+            projectile.transform.localScale = new Vector2(0.2f, 0.2f);
+            this.speed = 7;
         }
 
 

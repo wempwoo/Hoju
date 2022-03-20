@@ -16,6 +16,9 @@ namespace BattleScene
         {
             var sprite = projectile.GetComponent<SpriteRenderer>();
             sprite.color = new Color(0.8f, 0.5f, 1.0f);
+
+            projectile.transform.localScale = new Vector2(0.1f, 0.1f);
+            this.speed = 14;
         }
 
         public override void OnHit(Projectile projectile, Enemy enemy)

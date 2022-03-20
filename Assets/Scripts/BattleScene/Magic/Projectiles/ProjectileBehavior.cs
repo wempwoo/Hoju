@@ -8,6 +8,8 @@ namespace BattleScene
     /// </summary>
     public abstract class ProjectileBehavior
     {
+        protected float speed = 10.0f;
+
         public void Setup(DriveContext context, Projectile projectile)
         {
             projectile.behavior = this;
@@ -42,7 +44,7 @@ namespace BattleScene
                 angle = ArcDegree.Of(position - myPosition);
             }
 
-            var targetVelocity = ArcDegree.ToVector(angle, 10);
+            var targetVelocity = ArcDegree.ToVector(angle, this.speed);
 
             float dispersionHalf = Dispersion.value / 2;
             ArcDegree directionRev = new ArcDegree(Random.Range(-dispersionHalf, dispersionHalf));
