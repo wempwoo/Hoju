@@ -7,12 +7,18 @@ namespace BattleScene
 {
     public class Player : Entity
     {
-        private Manaroid manaroid;
+        private readonly List<Manaroid> manaroids = new List<Manaroid>();
 
         void Start()
         {
-            this.manaroid = Prefabs.Instantiate<Manaroid>("ManaroidPrefab");
-            this.manaroid.Position = this.Position + new Vector2(0, 1);
+            this.manaroids.Add(Prefabs.Instantiate<Manaroid>("ManaroidPrefab"));
+            this.manaroids.Add(Prefabs.Instantiate<Manaroid>("ManaroidPrefab"));
+
+            this.manaroids[0].Position = this.Position + new Vector2(-1, 1);
+            this.manaroids[1].Position = this.Position + new Vector2(1, 1);
+
+            this.manaroids[0].circuit = MagicCircuit.Sample1();
+            this.manaroids[1].circuit = MagicCircuit.Sample2();
         }
 
         void Update()
