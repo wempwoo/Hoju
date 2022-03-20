@@ -2,11 +2,17 @@
 
 namespace BattleScene
 {
-    public class MagicCircuit
+    /// <summary>
+    /// 魔導回路
+    /// </summary>
+    public class ManaCircuit
     {
+        /// <summary>
+        /// スロットツリーの先頭ノード
+        /// </summary>
         private SlotNode slotsHead;
 
-        public MagicCircuit(SlotNode slotsTree)
+        public ManaCircuit(SlotNode slotsTree)
         {
             this.slotsHead = slotsTree;
         }
@@ -50,16 +56,16 @@ namespace BattleScene
             }
         }
 
-        public static MagicCircuit Sample1()
+        public static ManaCircuit Sample1()
         {
 
             var slot1 = new SlotNode();
             slot1.spell = new FireBallOrb();
 
-            return new MagicCircuit(slot1);
+            return new ManaCircuit(slot1);
         }
 
-        public static MagicCircuit Sample2()
+        public static ManaCircuit Sample2()
         {
 
             var slot1 = new SlotNode();
@@ -73,14 +79,28 @@ namespace BattleScene
             slot3.spell = new ManaBoltOrb();
             slot2.nextSlot = slot3;
 
-            return new MagicCircuit(slot1);
+            return new ManaCircuit(slot1);
         }
     }
 
+    /// <summary>
+    /// 魔導回路の状態
+    /// </summary>
     public enum CircuitStatus
     {
+        /// <summary>
+        /// いつでも発動可能
+        /// </summary>
         Ready,
+
+        /// <summary>
+        /// 発動中
+        /// </summary>
         Driving,
+
+        /// <summary>
+        /// 発動後クールダウン中
+        /// </summary>
         Cooldown,
     }
 }
