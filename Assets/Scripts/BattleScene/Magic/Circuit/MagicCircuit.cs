@@ -19,7 +19,7 @@ namespace BattleScene
 
         private CircuitStatus status = CircuitStatus.Ready;
 
-        private Seconds elapsed = new Seconds(0);
+        private Seconds cooled = new Seconds(0);
 
         private Seconds coolTime = new Seconds(1);
 
@@ -45,10 +45,10 @@ namespace BattleScene
 
             if (status == CircuitStatus.Cooldown)
             {
-                this.elapsed += context.deltaTime;
-                if (this.elapsed > this.coolTime)
+                this.cooled += context.deltaTime;
+                if (this.cooled > this.coolTime)
                 {
-                    this.elapsed = new Seconds(0);
+                    this.cooled = new Seconds(0);
                     this.slotsHead.Reset();
                     this.status = CircuitStatus.Ready;
                 }
