@@ -9,7 +9,7 @@ namespace BattleScene
     /// </summary>
     public class Manaroid : Entity
     {
-        public MagicCircuit circuit;
+        public ManaCircuit circuit;
 
         void Start()
         {

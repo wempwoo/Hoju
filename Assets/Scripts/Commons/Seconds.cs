@@ -3,6 +3,8 @@ using UnityEngine;
 
 public struct Seconds
 {
+    public static readonly Seconds zero = new Seconds(0);
+
     public static Seconds Delta
     {
         get { return new Seconds(Time.deltaTime); }

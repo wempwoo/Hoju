@@ -17,8 +17,8 @@ namespace BattleScene
             this.manaroids[0].Position = this.Position + new Vector2(-1, 1);
             this.manaroids[1].Position = this.Position + new Vector2(1, 1);
 
-            this.manaroids[0].circuit = MagicCircuit.Sample1();
-            this.manaroids[1].circuit = MagicCircuit.Sample2();
+            this.manaroids[0].circuit = ManaCircuit.Sample1();
+            this.manaroids[1].circuit = ManaCircuit.Sample2();
         }
 
         void Update()
