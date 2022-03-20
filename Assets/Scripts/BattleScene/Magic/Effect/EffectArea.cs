@@ -67,16 +67,15 @@ namespace BattleScene
             foreach (var target in targetEnemies)
             {
                 int id = target.GetInstanceID();
-                if (this.effecteds.ContainsKey(id))
+
+                // 初検出の敵
+                if (!this.effecteds.ContainsKey(id))
                 {
-                    this.effecteds[id] += delta;
-                }
-                else
-                {
-                    // 初検出の敵
                     // 下のif文で確実に処理される経過時間をセットしておく
-                    this.effecteds[id] = this.EffectInterval + new Seconds(1);
+                    this.effecteds[id] = this.EffectInterval;
                 }
+
+                this.effecteds[id] += delta;
 
                 if (this.effecteds[id] > this.EffectInterval)
                 {
