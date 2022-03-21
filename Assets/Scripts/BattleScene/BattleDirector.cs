@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BattleScene
 {
-    public class EnemyGenerator : MonoBehaviour
+    public class BattleDirector : MonoBehaviour
     {
         private GameObject enemyPrefab;
 
