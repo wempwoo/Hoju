@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 1147574406}
   - component: {fileID: 1147574405}
   m_Layer: 0
-  m_Name: EnemyGenerator
+  m_Name: BattleDirector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
