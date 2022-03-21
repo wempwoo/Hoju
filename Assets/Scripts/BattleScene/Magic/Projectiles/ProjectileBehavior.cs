@@ -13,8 +13,8 @@ namespace BattleScene
         public void Setup(DriveContext context, Projectile projectile)
         {
             projectile.behavior = this;
-            projectile.Position = context.playerPosition;
-            projectile.Velocity = Target(context.playerPosition);
+            projectile.Position = context.owner.Position;
+            projectile.Velocity = Target(context.firingAngle);
 
             this.SetupExtends(context, projectile);
         }
@@ -27,24 +27,11 @@ namespace BattleScene
         /// <summary>
         /// 攻撃対象へのベクトルを求める
         /// </summary>
-        /// <param name="myPosition"></param>
+        /// <param name="firingAngle"></param>
         /// <returns></returns>
-        private Vector2 Target(Vector2 myPosition)
+        private Vector2 Target(ArcDegree firingAngle)
         {
-            var enemies = Enemy.GetEnemyEntities();
-
-            ArcDegree angle;
-            if (enemies.Count() == 0)
-            {
-                angle = ArcDegree.Top;
-            }
-            else
-            {
-                (Enemy _, Vector2 position, float _) = Entity.GetNearest(enemies, myPosition);
-                angle = ArcDegree.Of(position - myPosition);
-            }
-
-            var targetVelocity = ArcDegree.ToVector(angle, this.speed);
+            var targetVelocity = firingAngle.ToVector(this.speed);
 
             float dispersionHalf = Dispersion.value / 2;
             ArcDegree directionRev = new ArcDegree(Random.Range(-dispersionHalf, dispersionHalf));

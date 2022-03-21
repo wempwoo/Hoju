@@ -33,14 +33,13 @@ public struct ArcDegree
     /// <summary>
     /// 角度と長さからベクトルを求める
     /// </summary>
-    /// <param name="arcDegree">角度(右が0度,上が90度)</param>
     /// <param name="distance">長さ</param>
     /// <returns></returns>
-    public static Vector2 ToVector(ArcDegree arcDegree, float distance)
+    public Vector2 ToVector(float distance)
     {
         return new Vector2(
-            Cos(arcDegree.value) * distance,
-            Sin(arcDegree.value) * distance
+            Cos(this.value) * distance,
+            Sin(this.value) * distance
         );
     }
 
@@ -68,7 +67,7 @@ public struct ArcDegree
         var currentDirection = Of(vector);
         var rotated = currentDirection + rotation;
 
-        return ToVector(rotated, distance);
+        return rotated.ToVector(distance);
     }
 }
 

@@ -5,13 +5,15 @@ namespace BattleScene
 {
     public class DriveContext
     {
-        public readonly Vector2 playerPosition;
         public readonly Seconds deltaTime;
+        public readonly Entity owner;
+        public readonly ArcDegree firingAngle;
 
-        public DriveContext(Vector2 playerPosition, Seconds deltaTime)
+        public DriveContext(Seconds deltaTime, Entity owner, ArcDegree target)
         {
-            this.playerPosition = playerPosition;
             this.deltaTime = deltaTime;
+            this.owner = owner;
+            this.firingAngle = target;
         }
     }
 }

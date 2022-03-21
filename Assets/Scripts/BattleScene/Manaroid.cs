@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace BattleScene
@@ -17,8 +18,23 @@ namespace BattleScene
 
         void Update()
         {
-            var driveContext = new DriveContext(this.Position, Seconds.Delta);
+            var driveContext = new DriveContext(Seconds.Delta, this, CalcTarget());
             circuit.Update(driveContext);
+        }
+
+        private ArcDegree CalcTarget()
+        {
+            var enemies = Enemy.GetEnemyEntities();
+
+            if (enemies.Count() == 0)
+            {
+                return ArcDegree.Top;
+            }
+            else
+            {
+                (Enemy _, Vector2 position, float _) = Entity.GetNearest(enemies, this.Position);
+                return ArcDegree.Of(position - this.Position);
+            }
         }
     }
 }
