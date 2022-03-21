@@ -32,5 +32,10 @@ namespace BattleScene
                 return ArcDegree.Of(nearest.Position - this.Position);
             }
         }
+
+        public static IEnumerable<Manaroid> FindEntities()
+        {
+            return GameObject.FindObjectsOfType<Manaroid>();
+        }
     }
 }

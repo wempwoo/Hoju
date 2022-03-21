@@ -13,6 +13,8 @@ namespace BattleScene
 
         private Seconds elapsed = new Seconds(0);
 
+        public Entity owner;
+
         void Start()
         {
         }
@@ -35,13 +37,15 @@ namespace BattleScene
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag("Actor"))
+            var target = collision.GetComponent<ActorBase>();
+            if (target == null || target == this.owner)
             {
-                this.Destroy();
-
-                var target = collision.GetComponent<ActorBase>();
-                behavior.OnHit(this, target);
+                return;
             }
+
+            this.Destroy();
+
+            behavior.OnHit(this, target);
         }
     }
 }

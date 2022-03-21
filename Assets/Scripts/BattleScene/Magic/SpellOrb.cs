@@ -22,6 +22,7 @@ namespace BattleScene
         public void Drive(DriveContext context)
         {
             var projectile = Prefabs.Instantiate<Projectile>(projectilePrefab);
+            projectile.owner = context.owner;
             this.spell.Setup(context, projectile);
         }
 

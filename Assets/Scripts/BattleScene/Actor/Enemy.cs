@@ -7,8 +7,11 @@ namespace BattleScene
 {
     public class Enemy : ActorBase
     {
+        private ManaCircuit circuit;
+
         protected override void PreStart()
         {
+            this.circuit = ManaCircuit.Sample2();
             this.Velocity = new Vector2(0, -1);
         }
 
@@ -27,6 +30,15 @@ namespace BattleScene
             {
                 this.Velocity = Vector2.zero;
             }
+
+            var context = new DriveContext(Seconds.Delta, this, this.CalcTarget());
+            this.circuit.Update(context);
+        }
+
+        private ArcDegree CalcTarget()
+        {
+            (Manaroid nearest, float _) = Entity.GetNearest(Manaroid.FindEntities(), this.Position);
+            return ArcDegree.Of(nearest.Position - this.Position);
         }
 
         public static IEnumerable<Enemy> GetEnemyEntities()

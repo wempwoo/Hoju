@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7610591477279357771}
   - component: {fileID: 7438196113677518087}
   - component: {fileID: 892013986810167153}
+  - component: {fileID: -1134149705199223157}
   m_Layer: 0
   m_Name: ManaroidPrefab
   m_TagString: Actor
@@ -95,3 +96,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a24a8e01796e4eea80777f0f39c20b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &-1134149705199223157
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8067822173651611057}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.49999997

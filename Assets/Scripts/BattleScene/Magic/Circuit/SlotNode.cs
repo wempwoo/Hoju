@@ -17,7 +17,7 @@ namespace BattleScene
                 throw new Exception("invalid status: " + this.status);
             }
 
-            this.spell.Drive(context);
+            this.spell?.Drive(context);
             this.status = SlotNodeStatus.CoolingDown;
             this.cooled = new Seconds(0);
         }

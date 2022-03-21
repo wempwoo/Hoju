@@ -56,6 +56,13 @@ namespace BattleScene
             }
         }
 
+        public static ManaCircuit Sample0()
+        {
+            var slot1 = new SlotNode();
+
+            return new ManaCircuit(slot1);
+        }
+
         public static ManaCircuit Sample1()
         {
 
