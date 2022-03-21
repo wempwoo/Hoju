@@ -8,15 +8,11 @@ namespace BattleScene
     /// <summary>
     /// 魔導機
     /// </summary>
-    public class Manaroid : Entity
+    public class Manaroid : ActorBase
     {
         public ManaCircuit circuit;
 
-        void Start()
-        {
-        }
-
-        void Update()
+        protected override void PostUpdate()
         {
             var driveContext = new DriveContext(Seconds.Delta, this, CalcTarget());
             circuit.Update(driveContext);
