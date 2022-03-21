@@ -31,8 +31,7 @@ namespace BattleScene
 
         public static IEnumerable<Enemy> GetEnemyEntities()
         {
-            return GameObject.FindGameObjectsWithTag("Enemy")
-                .Select(obj => obj.GetComponent<Enemy>());
+            return GameObject.FindObjectsOfType<Enemy>();
         }
     }
 }

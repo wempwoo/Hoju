@@ -21,9 +21,9 @@ namespace BattleScene
             this.speed = 14;
         }
 
-        public override void OnHit(Projectile projectile, Enemy enemy)
+        public override void OnHit(Projectile projectile, ActorBase target)
         {
-            enemy.Damaged(30);
+            target.Damaged(30);
         }
 
     }

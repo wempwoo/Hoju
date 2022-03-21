@@ -35,12 +35,12 @@ namespace BattleScene
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.CompareTag("Enemy"))
+            if (collision.gameObject.CompareTag("Actor"))
             {
                 this.Destroy();
 
-                var enemy = collision.GetComponent<Enemy>();
-                behavior.OnHit(this, enemy);
+                var target = collision.GetComponent<ActorBase>();
+                behavior.OnHit(this, target);
             }
         }
     }

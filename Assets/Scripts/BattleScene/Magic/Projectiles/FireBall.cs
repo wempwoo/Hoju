@@ -22,7 +22,7 @@ namespace BattleScene
 
         private readonly GameObject effectAreaPrefab = Prefabs.Load("EffectAreaPrefab");
 
-        public override void OnHit(Projectile projectile, Enemy enemy)
+        public override void OnHit(Projectile projectile, ActorBase target)
         {
             var effectArea = Prefabs.Instantiate<EffectArea>(this.effectAreaPrefab);
             effectArea.Position = projectile.Position;
