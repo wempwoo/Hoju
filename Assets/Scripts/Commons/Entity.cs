@@ -64,7 +64,7 @@ public abstract class Entity : MonoBehaviour
     /// <param name="targets">必ず1つ以上</param>
     /// <param name="from"></param>
     /// <returns></returns>
-    public static (E entity, Vector2 position, float distance) GetNearest<E>(
+    public static (E entity, float distance) GetNearest<E>(
         IEnumerable<E> targets,
         Vector2 from)
         where E : Entity
@@ -78,12 +78,11 @@ public abstract class Entity : MonoBehaviour
                 .Select(t => new
                 {
                     ent = t,
-                    pos = t.transform.position,
                     dist = Vector2.Distance(from, t.transform.position)
                 })
                 .OrderBy(t => t.dist)
                 .FirstOrDefault();
 
-        return (nearest.ent, nearest.pos, nearest.dist);
+        return (nearest.ent, nearest.dist);
     }
 }

@@ -32,8 +32,8 @@ namespace BattleScene
             }
             else
             {
-                (Enemy _, Vector2 position, float _) = Entity.GetNearest(enemies, this.Position);
-                return ArcDegree.Of(position - this.Position);
+                (Enemy nearest, float _) = Entity.GetNearest(enemies, this.Position);
+                return ArcDegree.Of(nearest.Position - this.Position);
             }
         }
     }
