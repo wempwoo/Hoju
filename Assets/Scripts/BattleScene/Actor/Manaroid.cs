@@ -12,6 +12,11 @@ namespace BattleScene
     {
         public ManaCircuit circuit;
 
+        protected override void PostStart()
+        {
+            this.hp = 500;
+        }
+
         protected override void PostUpdate()
         {
             var driveContext = new DriveContext(Seconds.Delta, this, CalcTarget());

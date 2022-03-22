@@ -53,7 +53,8 @@ namespace BattleScene
 
         private bool isDamageEffecting = false;
         private Seconds damageEffectElapsed;
-        private int hp = 100;
+
+        protected int hp = 100;
 
         public void Damaged(int point)
         {
