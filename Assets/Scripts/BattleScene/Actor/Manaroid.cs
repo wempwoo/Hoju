@@ -12,9 +12,12 @@ namespace BattleScene
     {
         public ManaCircuit circuit;
 
-        protected override void PostStart()
+        protected override void PreStart()
         {
             this.hp = 500;
+
+            var gauge = Prefabs.Instantiate<BarGauge>("BarGaugePrefab");
+            gauge.Position = this.Position - new Vector2(0, 0.5f);
         }
 
         protected override void PostUpdate()
