@@ -35,11 +35,10 @@ public class BarGauge : Entity
 
     void Update()
     {
-        return;
-        for (int i = 0; i < this.pixels.Length; i++) this.pixels[i] = t;
-        for (int i = 5; i < this.pixels.Length; i++) this.pixels[i] = f;
-        this.texture.SetPixels(this.pixels);
-        this.texture.Apply();
+        //for (int i = 0; i < this.pixels.Length; i++) this.pixels[i] = t;
+        //for (int i = 5; i < this.pixels.Length; i++) this.pixels[i] = f;
+        //this.texture.SetPixels(this.pixels);
+        //this.texture.Apply();
         //this.spriteRenderer.sprite = Sprite.Create(this.texture, new Rect(0, 0, 10, 1), Vector2.zero);
     }
 }
