@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
+namespace ExploreScene
 {
-    private ExploreDirector director;
-
-    void Start()
+    public class UIController : MonoBehaviour
     {
-        this.director = FindObjectOfType<ExploreDirector>();
+        private ExploreDirector director;
 
-        var go = GameObject.Find("ExplorerMP");
-        var text = go.GetComponent<Text>();
-
-        this.director.explorerMP.Subscribe(mp =>
+        void Start()
         {
-            text.text = $"MP {mp.Current}/{mp.Max}";
-        });
-    }
+            this.director = FindObjectOfType<ExploreDirector>();
 
-    void Update()
-    {
-        
+            var go = GameObject.Find("ExplorerMP");
+            var text = go.GetComponent<Text>();
+
+            this.director.explorerMP.Subscribe(mp =>
+            {
+                text.text = $"MP {mp.Current}/{mp.Max}";
+            });
+        }
+
+        void Update()
+        {
+
+        }
     }
 }

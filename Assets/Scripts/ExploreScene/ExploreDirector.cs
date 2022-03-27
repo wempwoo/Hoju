@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExploreDirector : MonoBehaviour
+namespace ExploreScene
 {
-    public Reactive<LimitedValue<int>> explorerMP = new Reactive<LimitedValue<int>>();
-
-    void Start()
+    public class ExploreDirector : MonoBehaviour
     {
-        this.explorerMP.Value = new LimitedValue<int>(100, 100);
-    }
+        public Reactive<LimitedValue<int>> explorerMP = new Reactive<LimitedValue<int>>();
 
-    private Seconds delta = Seconds.zero;
-
-    void Update()
-    {
-        this.delta += Seconds.Delta;
-
-        if (this.delta > new Seconds(1))
+        void Start()
         {
-            this.delta = Seconds.zero;
-            this.explorerMP.Change(mp => mp.NewCurrent(p => p - 1));
+            this.explorerMP.Value = new LimitedValue<int>(100, 100);
+        }
+
+        private Seconds delta = Seconds.zero;
+
+        void Update()
+        {
+            this.delta += Seconds.Delta;
+
+            if (this.delta > new Seconds(1))
+            {
+                this.delta = Seconds.zero;
+                this.explorerMP.Change(mp => mp.NewCurrent(p => p - 1));
+            }
         }
     }
 }
