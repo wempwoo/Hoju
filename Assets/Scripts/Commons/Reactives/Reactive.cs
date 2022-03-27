@@ -15,6 +15,12 @@ public class Reactive<T>
     public void Subscribe(Action<T> subscriber)
     {
         this.subscribers.Add(subscriber);
+        subscriber(this.value);
+    }
+
+    public void UnsubcribeAll()
+    {
+        this.subscribers.Clear();
     }
 
     public T Value

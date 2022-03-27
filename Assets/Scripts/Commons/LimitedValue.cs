@@ -26,4 +26,9 @@ public class LimitedValue<T>
     {
         return new LimitedValue<T>(this.current, changer(this.max));
     }
+
+    public override string ToString()
+    {
+        return $"{current}/{max}";
+    }
 }

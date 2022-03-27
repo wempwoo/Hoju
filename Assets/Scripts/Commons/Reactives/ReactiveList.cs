@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// リアクティブなリストのプロパティとか作るやつ
@@ -11,19 +12,21 @@ public class ReactiveList<T> : IList<T>
     private readonly List<T> list = new List<T>();
 
     // TODO: 弱参照にすべきだと思う
-    private readonly List<Action<List<T>>> subscribers = new List<Action<List<T>>>();
+    private readonly List<Action<List<T>, ReactiveListChange, T>> subscribers = new List<Action<List<T>, ReactiveListChange, T>>();
 
-    public void Subscribe(Action<List<T>> subscriber)
+    public void Subscribe(Action<List<T>, ReactiveListChange, T> subscriber)
     {
         this.subscribers.Add(subscriber);
+
+        subscriber(this.list, ReactiveListChange.Init, default(T));
     }
 
-    private void Notify()
+    private void Notify(ReactiveListChange change, T item)
     {
-        this.subscribers.ForEach(s => s(this.list));
+        this.subscribers.ForEach(s => s(this.list, change, item));
     }
 
-    public T this[int index] { get => this.list[index]; set { this.list[index] = value; this.Notify(); } }
+    public T this[int index] { get => this.list[index]; set => throw new NotSupportedException(); }
 
     public int Count => this.list.Count;
 
@@ -32,13 +35,15 @@ public class ReactiveList<T> : IList<T>
     public void Add(T item)
     {
         this.list.Add(item);
-        this.Notify();
+        this.Notify(ReactiveListChange.Add, item);
     }
 
     public void Clear()
     {
+        var items = this.list.ToList();
         this.list.Clear();
-        this.Notify();
+
+        items.ForEach(item => this.Notify(ReactiveListChange.Remove, item));
     }
 
     public bool Contains(T item)
@@ -64,24 +69,32 @@ public class ReactiveList<T> : IList<T>
     public void Insert(int index, T item)
     {
         this.list.Insert(index, item);
-        this.Notify();
+        this.Notify(ReactiveListChange.Add, item);
     }
 
     public bool Remove(T item)
     {
         bool result = this.Remove(item);
-        this.Notify();
+        this.Notify(ReactiveListChange.Remove, item);
         return result;
     }
 
     public void RemoveAt(int index)
     {
+        var removed = this[index];
         this.RemoveAt(index);
-        this.Notify();
+        this.Notify(ReactiveListChange.Remove, removed);
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
         return this.GetEnumerator();
     }
+}
+
+public enum ReactiveListChange
+{
+    Init,
+    Add,
+    Remove,
 }

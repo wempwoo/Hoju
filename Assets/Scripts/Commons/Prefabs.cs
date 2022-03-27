@@ -20,6 +20,11 @@ public static class Prefabs
         return Instantiate<T>(Load(name));
     }
 
+    public static GameObject Instantiate(string name)
+    {
+        return GameObject.Instantiate(Load(name));
+    }
+
     public static T Instantiate<T>(GameObject prefab)
     {
         var instance = MonoBehaviour.Instantiate(prefab);
