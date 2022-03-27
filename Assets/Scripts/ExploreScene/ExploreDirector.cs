@@ -6,11 +6,10 @@ namespace ExploreScene
 {
     public class ExploreDirector : MonoBehaviour
     {
-        public Reactive<LimitedValue<int>> explorerMP = new Reactive<LimitedValue<int>>();
+        public readonly PlayerState player = new PlayerState();
 
         void Start()
         {
-            this.explorerMP.Value = new LimitedValue<int>(100, 100);
         }
 
         private Seconds delta = Seconds.zero;
@@ -22,7 +21,7 @@ namespace ExploreScene
             if (this.delta > new Seconds(1))
             {
                 this.delta = Seconds.zero;
-                this.explorerMP.Change(mp => mp.NewCurrent(p => p - 1));
+                this.player.explorer.mp.Change(mp => mp.NewCurrent(p => p - 1));
             }
         }
     }

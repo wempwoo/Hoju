@@ -16,7 +16,7 @@ namespace ExploreScene
             var go = GameObject.Find("ExplorerMP");
             var text = go.GetComponent<Text>();
 
-            this.director.explorerMP.Subscribe(mp =>
+            this.director.player.explorer.mp.Subscribe(mp =>
             {
                 text.text = $"MP {mp.Current}/{mp.Max}";
             });
