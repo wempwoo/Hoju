@@ -10,6 +10,11 @@ namespace ExploreScene
 
         void Start()
         {
+            var leftTile = Prefabs.Instantiate<ExploreTile>("ExploreScene/ExploreTilePrefab");
+            leftTile.Position = new Vector2(-0.7f, -0.5f);
+
+            var rightTile = Prefabs.Instantiate<ExploreTile>("ExploreScene/ExploreTilePrefab");
+            rightTile.Position = new Vector2(0.7f, -0.5f);
         }
 
         private Seconds delta = Seconds.zero;
