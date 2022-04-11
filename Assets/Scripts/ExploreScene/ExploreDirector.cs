@@ -7,14 +7,11 @@ namespace ExploreScene
     public class ExploreDirector : MonoBehaviour
     {
         public readonly PlayerState player = new PlayerState();
+        private readonly RouteRenderer route = new RouteRenderer();
 
         void Start()
         {
-            var leftTile = Prefabs.Instantiate<ExploreTile>("ExploreScene/ExploreTilePrefab");
-            leftTile.Position = new Vector2(-0.7f, -0.5f);
-
-            var rightTile = Prefabs.Instantiate<ExploreTile>("ExploreScene/ExploreTilePrefab");
-            rightTile.Position = new Vector2(0.7f, -0.5f);
+            this.route.Start();
         }
 
         private Seconds delta = Seconds.zero;

@@ -1,25 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExploreTile : Entity, ITouchable
+namespace ExploreScene
 {
 
-    void Start()
+    public class ExploreTile : Entity, ITouchable
     {
-        //GetComponent<BoxCollider2D>().size = new Vector2(1000, 1000);
-    }
+        Action touched;
 
-    void Update()
-    {
-
-    }
-
-    public void Touched(TouchEvent touch)
-    {
-        if (touch.state == TouchState.Began)
+        public void Initialize(ExploreRoom room, Action<ExploreRoom> touched)
         {
-            this.Destroy();
+            this.touched = () => touched(room);
+        }
+
+        void Start()
+        {
+            //GetComponent<BoxCollider2D>().size = new Vector2(1000, 1000);
+        }
+
+        void Update()
+        {
+
+        }
+
+        public void Touched(TouchEvent touch)
+        {
+            if (touch.state == TouchState.Began)
+            {
+                this.touched();
+            }
         }
     }
+
 }

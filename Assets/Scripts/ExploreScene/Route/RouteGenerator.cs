@@ -29,7 +29,7 @@ namespace ExploreScene
         private ExplorePhase currentPhase;
         private int currentLine;
 
-        public RouteGenerator()
+        public void Start()
         {
             var firstPhase = new ExplorePhase(1);
             this.currentPhase = firstPhase;
@@ -41,6 +41,8 @@ namespace ExploreScene
                 addingPhase = addingPhase.AddNext();
             }
         }
+
+        public ExplorePhase CurrentPhase { get => this.currentPhase; }
 
         public void GoTo(int nextLine)
         {
@@ -144,20 +146,45 @@ namespace ExploreScene
                 if (this.HasLines(left, right) && next.HasLines(left, right))
                 {
                     Probable.AtMostOne()
-                        .Case(0.4f, () => this.rooms[left - 1].ConnectTo(right))
-                        .Case(0.4f, () => this.rooms[right - 1].ConnectTo(left));
+                        .Case(0.4f, () => this.RoomAt(left).ConnectTo(right))
+                        .Case(0.4f, () => this.RoomAt(right).ConnectTo(left));
                 }
             }
 
             // 中央の部屋の接続チェック
-            if (this.RoomAt(2).IsNoConnect || next.RoomAt(2).IsNoConnect)
+            // 両フェーズに中央あり
+            if (this.HasLine(2) && next.HasLine(2))
             {
-                this.RoomAt(2).ConnectTo(2);
+                if (this.RoomAt(2).IsNoConnect || !this.HasConnectTo(2))
+                {
+                    this.RoomAt(2).ConnectTo(2);
+                }
+                else
+                {
+                    Probable.Single(0.5f, () => this.RoomAt(2).ConnectTo(2));
+                }
             }
-            else
+
+            // 現在フェーズに中央あるが次フェーズは両端のみ
+            else if (this.HasLine(2) && this.RoomAt(2).IsNoConnect)
             {
-                Probable.Single(0.5f, () => this.RoomAt(2).ConnectTo(2));
+                Probable.AtMostOne()
+                    .Case(0.5f, () => this.RoomAt(2).ConnectTo(1))
+                    .Case(1.0f, () => this.RoomAt(2).ConnectTo(3));
             }
+
+            // 次フェーズに中央あるが現在フェーズは両端のみ
+            else if (next.HasLine(2) && !this.HasConnectTo(2))
+            {
+                Probable.AtMostOne()
+                    .Case(0.5f, () => this.RoomAt(1).ConnectTo(2))
+                    .Case(1.0f, () => this.RoomAt(3).ConnectTo(2));
+            }
+        }
+
+        private bool HasLine(int line)
+        {
+            return this.rooms.Any(r => r.line == line);
         }
 
         /// <summary>
@@ -168,8 +195,12 @@ namespace ExploreScene
         /// <returns></returns>
         private bool HasLines(int line1, int line2)
         {
-            return this.rooms.Any(r => r.line == line1)
-                && this.rooms.Any(r => r.line == line2);
+            return this.HasLine(line1) && this.HasLine(line2);
+        }
+
+        private bool HasConnectTo(int line)
+        {
+            return this.rooms.Where(r => r.nextLines.Any(n => n == line)).Any();
         }
 
         private ExploreRoom RoomAt(int line)
