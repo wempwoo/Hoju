@@ -80,7 +80,7 @@ namespace ExploreScene
         {
             if ((phase - 1) % RouteConsts.IntervalRestPhase == 0)
             {
-                return new[] { new ExploreRoom(phase, 1) };
+                return new[] { new ExploreRoom(phase, 2) };
             }
 
             int roomsCount = DecideRoomsCount();

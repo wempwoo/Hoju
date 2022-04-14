@@ -27,16 +27,31 @@ namespace ExploreScene
             this.gameObjects.ForEach(g => MonoBehaviour.Destroy(g));
             this.gameObjects.Clear();
 
-            var nextRooms = this.generator.CurrentPhase.next.rooms;
-            for (int i = 0; i < nextRooms.Count; i++)
+            for (
+                ExplorePhase renderPhase = this.generator.CurrentPhase;
+                renderPhase.next != null;
+                renderPhase = renderPhase.next)
             {
-                var room = nextRooms[i];
-                var tile = Prefabs.Instantiate<ExploreTile>("ExploreScene/ExploreTilePrefab");
-                tile.Position = new Vector2(-1.5f + (room.line - 1) * 1.3f, -0.5f);
-                tile.Initialize(room, RoomSelected);
+                int depth = this.generator.CurrentPhase.phase - renderPhase.phase;
+                float scale = depth == 0 ? 1.0f : 0.3f;
 
-                this.gameObjects.Add(tile.gameObject);
+                var nextRooms = renderPhase.next.rooms;
+                for (int i = 0; i < nextRooms.Count; i++)
+                {
+                    var room = nextRooms[i];
+                    var tile = Prefabs.Instantiate<ExploreTile>("ExploreScene/ExploreTilePrefab");
+
+                    float x = -1.2f + (room.line - 1) * 1.3f;
+                    float y = -0.9f - (depth == 0 ? 0.5f : 0);
+                    tile.Position = new Vector2(x * scale, y - depth * 0.5f);
+                    tile.transform.localScale = new Vector2(scale, scale);
+                    tile.Initialize(room, RoomSelected);
+
+                    this.gameObjects.Add(tile.gameObject);
+                }
+
             }
+
         }
 
         private void RoomSelected(ExploreRoom selectedRoom)
