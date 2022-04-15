@@ -27,13 +27,18 @@ namespace ExploreScene
             this.gameObjects.ForEach(g => MonoBehaviour.Destroy(g));
             this.gameObjects.Clear();
 
+            Func<int, float> calcDepth = phase => this.generator.CurrentPhase.phase - phase;
+            Func<int, float> calcScale = phase => calcDepth(phase) == 0 ? 0.3f : 0.3f;
+            Func<int, int, float> calcX = (phase, line) => (-1.2f + (line - 1) * 1.3f) * calcScale(phase);
+            Func<int, float> calcY = phase => (-0.9f - (calcDepth(phase) == 0 ? 0 : 0)) - calcDepth(phase) * 0.5f;
+
             for (
                 ExplorePhase renderPhase = this.generator.CurrentPhase;
                 renderPhase.next != null;
                 renderPhase = renderPhase.next)
             {
-                int depth = this.generator.CurrentPhase.phase - renderPhase.phase;
-                float scale = depth == 0 ? 1.0f : 0.3f;
+                float scale = calcScale(renderPhase.phase);
+                float y = calcY(renderPhase.phase);
 
                 var nextRooms = renderPhase.next.rooms;
                 for (int i = 0; i < nextRooms.Count; i++)
@@ -41,13 +46,26 @@ namespace ExploreScene
                     var room = nextRooms[i];
                     var tile = Prefabs.Instantiate<ExploreTile>("ExploreScene/ExploreTilePrefab");
 
-                    float x = -1.2f + (room.line - 1) * 1.3f;
-                    float y = -0.9f - (depth == 0 ? 0.5f : 0);
-                    tile.Position = new Vector2(x * scale, y - depth * 0.5f);
+                    float x = calcX(room.phase, room.line);
+                    tile.Position = new Vector2(x, y);
                     tile.transform.localScale = new Vector2(scale, scale);
                     tile.Initialize(room, RoomSelected);
 
                     this.gameObjects.Add(tile.gameObject);
+
+                    foreach(int toLine in room.nextLines)
+                    {
+                        var connect = Prefabs.Instantiate<LineRenderer>("ExploreScene/RoomConnectionPrefab");
+
+                        var from = new Vector2(x, y);
+                        var to = new Vector2(
+                            calcX(renderPhase.phase, toLine),
+                            calcY(renderPhase.phase + 1));
+
+                        connect.SetPositions(new Vector3[] { from, to });
+
+                        this.gameObjects.Add(connect.gameObject);
+                    }
                 }
 
             }
