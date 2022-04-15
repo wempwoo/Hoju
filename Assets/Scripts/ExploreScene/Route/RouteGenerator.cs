@@ -44,6 +44,8 @@ namespace ExploreScene
 
         public ExplorePhase CurrentPhase { get => this.currentPhase; }
 
+        public ExploreRoom CurrentRoom { get => this.CurrentPhase.RoomAt(currentLine); }
+
         public void GoTo(int nextLine)
         {
             this.currentPhase = this.currentPhase.next;
@@ -70,6 +72,8 @@ namespace ExploreScene
         }
 
         public bool IsSingleRoom { get => this.rooms.Count() == 1; }
+
+        
 
         /// <summary>
         /// 部屋を作成する
@@ -203,7 +207,7 @@ namespace ExploreScene
             return this.rooms.Where(r => r.nextLines.Any(n => n == line)).Any();
         }
 
-        private ExploreRoom RoomAt(int line)
+        public ExploreRoom RoomAt(int line)
         {
             return this.rooms.Where(r => r.line == line).First();
         }
