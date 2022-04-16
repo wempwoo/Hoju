@@ -7,10 +7,11 @@ namespace ExploreScene
 
     public class RouteRenderer
     {
+        private readonly Prefab tilePrefab = new Prefab("ExploreScene/ExploreTilePrefab");
+        private readonly Prefab connectPrefab = new Prefab("ExploreScene/RoomConnectionPrefab");
+
         private readonly RouteGenerator generator;
         private readonly List<GameObject> gameObjects;
-        private GameObject tilePrefab;
-        private GameObject connectPrefab;
 
         public RouteRenderer()
         {
@@ -20,8 +21,6 @@ namespace ExploreScene
 
         public void Start()
         {
-            this.tilePrefab = Prefabs.Load("ExploreScene/ExploreTilePrefab");
-            this.connectPrefab = Prefabs.Load("ExploreScene/RoomConnectionPrefab");
             this.generator.Start();
             this.Render();
         }
@@ -83,7 +82,7 @@ namespace ExploreScene
                 for (int i = 0; i < nextRooms.Count; i++)
                 {
                     var room = nextRooms[i];
-                    var tile = Prefabs.Instantiate<ExploreTile>(this.tilePrefab);
+                    var tile = this.tilePrefab.Instantiate<ExploreTile>();
 
                     float x = calcX(room.phase, room.line);
                     tile.Position = new Vector2(x, y);
@@ -144,14 +143,14 @@ namespace ExploreScene
 
         private ExploreTile CreateTile()
         {
-            var tile = Prefabs.Instantiate<ExploreTile>(this.tilePrefab);
+            var tile = this.tilePrefab.Instantiate<ExploreTile>();
             this.gameObjects.Add(tile.gameObject);
             return tile;
         }
 
         private LineRenderer CreateConnect(Vector2 from, Vector2 to)
         {
-            var connect = Prefabs.Instantiate<LineRenderer>(this.connectPrefab);
+            var connect = this.connectPrefab.Instantiate<LineRenderer>();
             this.gameObjects.Add(connect.gameObject);
             connect.SetPositions(new Vector3[] { from, to });
             return connect;

@@ -9,19 +9,18 @@ namespace BattleScene
     /// </summary>
     public abstract class SpellOrb
     {
-        private readonly GameObject projectilePrefab;
+        private readonly Prefab projectilePrefab = new Prefab("ProjectilePrefab");
 
         private readonly ProjectileBehavior spell;
 
         public SpellOrb(ProjectileBehavior spell)
         {
-            this.projectilePrefab = Prefabs.Load("ProjectilePrefab");
             this.spell = spell;
         }
 
         public void Drive(DriveContext context)
         {
-            var projectile = Prefabs.Instantiate<Projectile>(projectilePrefab);
+            var projectile = projectilePrefab.Instantiate<Projectile>();
             projectile.owner = context.owner;
             this.spell.Setup(context, projectile);
         }

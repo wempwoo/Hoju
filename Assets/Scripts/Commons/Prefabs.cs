@@ -1,8 +1,26 @@
 ﻿using System;
 using UnityEngine;
-public static class Prefabs
+
+public class Prefab
 {
-    public static GameObject Load(string name)
+    private Lazy<GameObject> prefab;
+
+    public Prefab(string name)
+    {
+        this.prefab = new Lazy<GameObject>(() => LoadPrefab(name));
+    }
+
+    public T Instantiate<T>()
+    {
+        return Instantiate().GetComponent<T>();
+    }
+
+    public GameObject Instantiate()
+    {
+        return GameObject.Instantiate(prefab.Value);
+    }
+
+    private static GameObject LoadPrefab(string name)
     {
         string path = "Prefabs/" + name;
         var prefab = Resources.Load(path) as GameObject;
@@ -15,19 +33,4 @@ public static class Prefabs
         return prefab;
     }
 
-    public static T Instantiate<T>(string name)
-    {
-        return Instantiate<T>(Load(name));
-    }
-
-    public static GameObject Instantiate(string name)
-    {
-        return GameObject.Instantiate(Load(name));
-    }
-
-    public static T Instantiate<T>(GameObject prefab)
-    {
-        var instance = MonoBehaviour.Instantiate(prefab);
-        return instance.GetComponent<T>();
-    }
 }

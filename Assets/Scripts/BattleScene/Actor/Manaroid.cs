@@ -11,12 +11,13 @@ namespace BattleScene
     public class Manaroid : ActorBase
     {
         public ManaCircuit circuit;
+        private readonly Prefab barGaugePrefab = new Prefab("BarGaugePrefab");
 
         protected override void PreStart()
         {
             this.hp = 500;
 
-            var gauge = Prefabs.Instantiate<BarGauge>("BarGaugePrefab");
+            var gauge = barGaugePrefab.Instantiate<BarGauge>();
             gauge.Position = this.Position - new Vector2(0, 0.5f);
         }
 

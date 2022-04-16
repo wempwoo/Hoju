@@ -6,14 +6,13 @@ namespace BattleScene
 {
     public class BattleDirector : MonoBehaviour
     {
-        private GameObject enemyPrefab;
+        private readonly Prefab enemyPrefab = new Prefab("EnemyPrefab");
 
         private float delta = 4;
 
         // Start is called before the first frame update
         void Start()
         {
-            enemyPrefab = Prefabs.Load("EnemyPrefab");
         }
 
         // Update is called once per frame
@@ -24,7 +23,7 @@ namespace BattleScene
             if (delta > 2.5f - Random.Range(0, 1.5f))
             {
                 delta = 0;
-                var newEnemy = Instantiate(enemyPrefab);
+                var newEnemy = enemyPrefab.Instantiate();
 
                 float px = Random.Range(World.Point.Min.x, World.Point.Max.x);
                 float y = World.Point.Max.y;

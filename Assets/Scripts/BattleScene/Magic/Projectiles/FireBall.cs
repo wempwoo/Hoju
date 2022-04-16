@@ -20,11 +20,11 @@ namespace BattleScene
         }
 
 
-        private readonly GameObject effectAreaPrefab = Prefabs.Load("EffectAreaPrefab");
+        private readonly Prefab effectAreaPrefab = new Prefab("EffectAreaPrefab");
 
         public override void OnHit(Projectile projectile, ActorBase target)
         {
-            var effectArea = Prefabs.Instantiate<EffectArea>(this.effectAreaPrefab);
+            var effectArea = this.effectAreaPrefab.Instantiate<EffectArea>();
             effectArea.Position = projectile.Position;
             effectArea.Color = new Color(1.0f, 0.5f, 0.2f, 0.5f);
             effectArea.Radius = 1.3f;
