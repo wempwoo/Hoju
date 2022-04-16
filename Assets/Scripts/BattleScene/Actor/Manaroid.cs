@@ -11,7 +11,7 @@ namespace BattleScene
     public class Manaroid : ActorBase
     {
         public ManaCircuit circuit;
-        private readonly Prefab barGaugePrefab = new Prefab("BarGaugePrefab");
+        private readonly Prefab barGaugePrefab = new Prefab("BattleScene/BarGaugePrefab");
 
         protected override void PreStart()
         {

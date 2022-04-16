@@ -6,7 +6,7 @@ namespace BattleScene
 {
     public class BattleDirector : MonoBehaviour
     {
-        private readonly Prefab enemyPrefab = new Prefab("EnemyPrefab");
+        private readonly Prefab enemyPrefab = new Prefab("BattleScene/EnemyPrefab");
 
         private float delta = 4;
 

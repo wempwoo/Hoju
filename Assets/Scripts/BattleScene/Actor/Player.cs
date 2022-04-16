@@ -8,7 +8,7 @@ namespace BattleScene
     public class Player : Entity
     {
         private readonly List<Manaroid> manaroids = new List<Manaroid>();
-        private readonly Prefab manaroidPrefab = new Prefab("ManaroidPrefab");
+        private readonly Prefab manaroidPrefab = new Prefab("BattleScene/ManaroidPrefab");
 
         void Start()
         {

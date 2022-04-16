@@ -9,7 +9,7 @@ namespace BattleScene
     /// </summary>
     public abstract class SpellOrb
     {
-        private readonly Prefab projectilePrefab = new Prefab("ProjectilePrefab");
+        private readonly Prefab projectilePrefab = new Prefab("BattleScene/ProjectilePrefab");
 
         private readonly ProjectileBehavior spell;
 

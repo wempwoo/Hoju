@@ -20,7 +20,7 @@ namespace BattleScene
         }
 
 
-        private readonly Prefab effectAreaPrefab = new Prefab("EffectAreaPrefab");
+        private readonly Prefab effectAreaPrefab = new Prefab("BattleScene/EffectAreaPrefab");
 
         public override void OnHit(Projectile projectile, ActorBase target)
         {
