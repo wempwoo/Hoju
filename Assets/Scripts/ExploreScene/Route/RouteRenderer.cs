@@ -129,8 +129,8 @@ namespace ExploreScene
 
             public static float Y(int depth)
             {
-                if (depth == 1) return -1.2f;
-                else return -1.1f + (0.6f * depth);
+                if (depth == 1) return -1.4f;
+                else return -1.45f + (0.6f * depth);
             }
         }
 
