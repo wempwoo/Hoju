@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -2860383976457036747}
   - component: {fileID: -7523978841040372355}
   m_Layer: 0
-  m_Name: ExploreTilePrefab
+  m_Name: RoomTilePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

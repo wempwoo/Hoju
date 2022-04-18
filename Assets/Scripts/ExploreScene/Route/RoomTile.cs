@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ExploreScene
 {
 
-    public class ExploreTile : Entity, ITouchable
+    public class RoomTile : Entity, ITouchable
     {
         Action touched;
 

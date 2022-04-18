@@ -82,7 +82,7 @@ namespace ExploreScene
                 for (int i = 0; i < nextRooms.Count; i++)
                 {
                     var room = nextRooms[i];
-                    var tile = this.tilePrefab.Instantiate<ExploreTile>();
+                    var tile = this.tilePrefab.Instantiate<RoomTile>();
 
                     float x = calcX(room.phase, room.line);
                     tile.Position = new Vector2(x, y);
@@ -141,9 +141,9 @@ namespace ExploreScene
             Debug.Log($"room: {selectedRoom.phase} - {selectedRoom.line}");
         }
 
-        private ExploreTile CreateTile()
+        private RoomTile CreateTile()
         {
-            var tile = this.tilePrefab.Instantiate<ExploreTile>();
+            var tile = this.tilePrefab.Instantiate<RoomTile>();
             this.gameObjects.Add(tile.gameObject);
             return tile;
         }
