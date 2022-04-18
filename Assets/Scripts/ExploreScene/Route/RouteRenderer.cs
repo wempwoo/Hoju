@@ -63,47 +63,6 @@ namespace ExploreScene
                     tile.Initialize(room, _ => { });
                 }
             }
-
-            return;
-
-            Func<int, float> calcScale = phase => calcDepth(phase) == 0 ? 0.3f : 0.3f;
-            Func<int, int, float> calcX = (phase, line) => (-1.2f + (line - 1) * 1.3f) * calcScale(phase);
-            Func<int, float> calcY = phase => (-0.9f - (calcDepth(phase) == 0 ? 0 : 0)) - calcDepth(phase) * 0.5f;
-
-            for (
-                ExplorePhase renderPhase = this.generator.CurrentPhase;
-                renderPhase.next != null;
-                renderPhase = renderPhase.next)
-            {
-                float scale = calcScale(renderPhase.phase);
-                float y = calcY(renderPhase.phase);
-
-                var nextRooms = renderPhase.next.rooms;
-                for (int i = 0; i < nextRooms.Count; i++)
-                {
-                    var room = nextRooms[i];
-                    var tile = this.tilePrefab.Instantiate<RoomTile>();
-
-                    float x = calcX(room.phase, room.line);
-                    tile.Position = new Vector2(x, y);
-                    tile.transform.localScale = new Vector2(scale, scale);
-
-                    tile.Initialize(room, RoomSelected);
-
-                    this.gameObjects.Add(tile.gameObject);
-
-                    foreach (int toLine in room.nextLines)
-                    {
-                        var from = new Vector2(x, y);
-                        var to = new Vector2(
-                            calcX(renderPhase.phase, toLine),
-                            calcY(renderPhase.phase + 1));
-                        this.CreateConnect(from, to);
-                    }
-                }
-
-            }
-
         }
 
         private void RenderSelectableRooms()
