@@ -1,23 +1,19 @@
 ﻿using System;
 using UnityEngine;
 
-public class Prefab
+public class Prefab<T>
 {
     private Lazy<GameObject> prefab;
 
-    public Prefab(string name)
+    public Prefab()
     {
+        string name = typeof(T).FullName.Replace('.', '/') + "Prefab";
         this.prefab = new Lazy<GameObject>(() => LoadPrefab(name));
     }
 
-    public T Instantiate<T>()
+    public T Instantiate()
     {
-        return Instantiate().GetComponent<T>();
-    }
-
-    public GameObject Instantiate()
-    {
-        return GameObject.Instantiate(prefab.Value);
+        return GameObject.Instantiate(prefab.Value).GetComponent<T>();
     }
 
     private static GameObject LoadPrefab(string name)

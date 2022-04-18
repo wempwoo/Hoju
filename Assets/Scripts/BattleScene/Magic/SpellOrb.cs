@@ -9,7 +9,7 @@ namespace BattleScene
     /// </summary>
     public abstract class SpellOrb
     {
-        private readonly Prefab projectilePrefab = new Prefab("BattleScene/ProjectilePrefab");
+        private readonly Prefab<Projectile> projectilePrefab = new Prefab<Projectile>();
 
         private readonly ProjectileBehavior spell;
 
@@ -20,7 +20,7 @@ namespace BattleScene
 
         public void Drive(DriveContext context)
         {
-            var projectile = projectilePrefab.Instantiate<Projectile>();
+            var projectile = projectilePrefab.Instantiate();
             projectile.owner = context.owner;
             this.spell.Setup(context, projectile);
         }

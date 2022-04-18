@@ -7,8 +7,8 @@ namespace ExploreScene
 
     public class RouteRenderer
     {
-        private readonly Prefab tilePrefab = new Prefab("ExploreScene/ExploreTilePrefab");
-        private readonly Prefab connectPrefab = new Prefab("ExploreScene/RoomConnectionPrefab");
+        private readonly Prefab<RoomTile> tilePrefab = new Prefab<RoomTile>();
+        private readonly Prefab<RoomConnection> connectPrefab = new Prefab<RoomConnection>();
 
         private readonly RouteGenerator generator;
         private readonly List<GameObject> gameObjects;
@@ -102,17 +102,16 @@ namespace ExploreScene
 
         private RoomTile CreateTile()
         {
-            var tile = this.tilePrefab.Instantiate<RoomTile>();
+            var tile = this.tilePrefab.Instantiate();
             this.gameObjects.Add(tile.gameObject);
             return tile;
         }
 
-        private LineRenderer CreateConnect(Vector2 from, Vector2 to)
+        private void CreateConnect(Vector2 from, Vector2 to)
         {
-            var connect = this.connectPrefab.Instantiate<LineRenderer>();
+            var connect = this.connectPrefab.Instantiate();
             this.gameObjects.Add(connect.gameObject);
-            connect.SetPositions(new Vector3[] { from, to });
-            return connect;
+            connect.GetComponent<LineRenderer>().SetPositions(new Vector3[] { from, to });
         }
     }
 
